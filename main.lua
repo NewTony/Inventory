@@ -10,6 +10,7 @@ Pprint(Food)
 
 local health = 10
 local fatigue = 5
+local copyInventory
 
 Inventory.items = Food.items
 
@@ -31,6 +32,28 @@ for k, v in pairs(Inventory.items) do
 		end
 	else print(tostring(k) .. ' : ' .. tostring(v)) end
 end
+
+local function deepcopy(orig)
+	local orig_type = type(orig)
+	local copy
+	if orig_type == 'table' then
+		copy = {}
+		for orig_key, orig_value in next, orig, nil do
+			copy[deepcopy(orig_key)] = deepcopy(orig_value)
+		end
+		setmetatable(copy, deepcopy(getmetatable(orig)))
+	else -- number, string, boolean, etc
+		copy = orig
+	end
+	return copy
+end
+
+print(Inventory)
+copyInventory = deepcopy(Inventory)
+print(copyInventory)
+
+Pprint(Inventory)
+Pprint(copyInventory)
 
 print('health = ' .. tostring(health))
 print('fatigue = ' .. tostring(fatigue))
