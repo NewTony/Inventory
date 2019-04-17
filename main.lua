@@ -4,6 +4,7 @@ local Food = require 'modules.staff.food'
 
 --connection of necessary libraries
 local Pprint = require 'lib.pprint'
+--local Deepcopy = require 'lib.deepcopy'
 
 Pprint(Inventory)
 Pprint(Food)
@@ -33,23 +34,8 @@ for k, v in pairs(Inventory.items) do
 	else print(tostring(k) .. ' : ' .. tostring(v)) end
 end
 
-local function deepcopy(orig)
-	local orig_type = type(orig)
-	local copy
-	if orig_type == 'table' then
-		copy = {}
-		for orig_key, orig_value in next, orig, nil do
-			copy[deepcopy(orig_key)] = deepcopy(orig_value)
-		end
-		setmetatable(copy, deepcopy(getmetatable(orig)))
-	else -- number, string, boolean, etc
-		copy = orig
-	end
-	return copy
-end
-
 print(Inventory)
-copyInventory = deepcopy(Inventory)
+--copyInventory = Deepcopy.deepcopy_f(Inventory)
 print(copyInventory)
 
 Pprint(Inventory)
