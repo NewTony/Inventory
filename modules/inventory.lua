@@ -1,6 +1,7 @@
 local inventory = {
 	count = 30,
-	items = {}
+	items = {},
+	use_item = 
 }
 
 return inventory
